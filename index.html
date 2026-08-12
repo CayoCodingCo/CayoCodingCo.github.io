@@ -27,7 +27,10 @@
     <a href="#process">Process</a>
     <a href="#contact">Contact</a>
   </nav>
-  <a href="https://wa.me/5016214804?text=Hi%20Cayo%20Coding%20Co%2C%20I%27d%20like%20to%20talk%20about%20a%20website" class="nav-cta"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+  <div class="nav-actions">
+    <button type="button" class="nav-estimator-btn open-estimator-btn"><i class="ti ti-calculator" aria-hidden="true"></i> Get a Quote</button>
+    <a href="https://wa.me/5016214804?text=Hi%20Cayo%20Coding%20Co%2C%20I%27d%20like%20to%20talk%20about%20a%20website" class="nav-cta"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+  </div>
 </header>
 
 <main>
@@ -168,7 +171,7 @@
     <p class="eyebrow">Investment</p>
     <h2>How pricing works</h2>
     <p class="body-text">Every project is quoted individually based on the number of pages, features, and your timeline — not a one-size-fits-all package. You'll get a clear, written quote before anything starts, and a simple agreement covering deposit, revisions, and ownership. No surprise invoices.</p>
-    <a href="#contact" class="btn btn-secondary">Get a quote</a>
+    <button type="button" class="btn btn-secondary open-estimator-btn">Try the quote estimator</button>
   </section>
 
   <section class="section about-section reveal" id="about">
@@ -258,6 +261,90 @@
   <p>Cayo Coding Co — based in the Cayo District, Belize.</p>
   <p class="footer-muted">© 2026 Cayo Coding Co. All rights reserved.</p>
 </footer>
+
+<!-- Quote Estimator Modal -->
+<div class="qc-backdrop" id="qc-backdrop">
+  <div class="qc-modal">
+    <button type="button" class="qc-close" id="qc-close" aria-label="Close">&times;</button>
+
+    <div class="qc-progress-track"><div class="qc-progress-fill" id="qc-progress-fill" style="width: 16.6%;"></div></div>
+
+    <form id="qc-quiz">
+      <div class="qc-step active" data-step="1">
+        <p class="qc-step-label">Step 1 of 6</p>
+        <p class="qc-question">How many pages do you need?</p>
+        <div class="qc-options" data-question="pages">
+          <div class="qc-option" data-value="1"><span class="qc-check"></span><span class="qc-opt-text">One page<span class="qc-opt-sub">Everything on a single scrolling page</span></span></div>
+          <div class="qc-option" data-value="2-5"><span class="qc-check"></span><span class="qc-opt-text">2 to 5 pages<span class="qc-opt-sub">Home, About, Services, Gallery, Contact, etc.</span></span></div>
+          <div class="qc-option" data-value="6+"><span class="qc-check"></span><span class="qc-opt-text">6 or more pages<span class="qc-opt-sub">A larger site with several sections</span></span></div>
+          <div class="qc-option" data-value="unsure"><span class="qc-check"></span><span class="qc-opt-text">Not sure yet</span></div>
+        </div>
+      </div>
+
+      <div class="qc-step" data-step="2">
+        <p class="qc-step-label">Step 2 of 6</p>
+        <p class="qc-question">Do you need the site in both English and Spanish?</p>
+        <div class="qc-options" data-question="bilingual">
+          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text">Yes, bilingual</span></div>
+          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text">No, one language is fine</span></div>
+        </div>
+      </div>
+
+      <div class="qc-step" data-step="3">
+        <p class="qc-step-label">Step 3 of 6</p>
+        <p class="qc-question">Want custom animation or interactive design touches?</p>
+        <div class="qc-options" data-question="animation">
+          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text">Yes<span class="qc-opt-sub">Motion, subtle effects, a more premium feel</span></span></div>
+          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text">No, clean and simple is fine</span></div>
+        </div>
+      </div>
+
+      <div class="qc-step" data-step="4">
+        <p class="qc-step-label">Step 4 of 6</p>
+        <p class="qc-question">Do you need online ordering or a booking/reservation system?</p>
+        <div class="qc-options" data-question="ordering">
+          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text">Yes</span></div>
+          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text">No</span></div>
+        </div>
+      </div>
+
+      <div class="qc-step" data-step="5">
+        <p class="qc-step-label">Step 5 of 6</p>
+        <p class="qc-question">What's your timeline?</p>
+        <div class="qc-options" data-question="timeline">
+          <div class="qc-option" data-value="standard"><span class="qc-check"></span><span class="qc-opt-text">Standard timeline is fine</span></div>
+          <div class="qc-option" data-value="rush"><span class="qc-check"></span><span class="qc-opt-text">I need it fast<span class="qc-opt-sub">Rush delivery, additional fee applies</span></span></div>
+        </div>
+      </div>
+
+      <div class="qc-step" data-step="6">
+        <p class="qc-step-label">Step 6 of 6</p>
+        <p class="qc-question">Want ongoing hosting and maintenance after launch?</p>
+        <div class="qc-options" data-question="hosting">
+          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text">Yes, handle that for me<span class="qc-opt-sub">BZD $60/month add-on</span></span></div>
+          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text">No, I'll manage it myself</span></div>
+        </div>
+      </div>
+
+      <div class="qc-nav-btns">
+        <button type="button" class="qc-btn qc-btn-secondary" id="qc-back-btn" style="visibility:hidden;">Back</button>
+        <button type="button" class="qc-btn qc-btn-primary" id="qc-next-btn" disabled>Next</button>
+      </div>
+    </form>
+
+    <div class="qc-result" id="qc-result">
+      <p class="qc-result-eyebrow">Recommended package</p>
+      <h3 class="qc-result-tier" id="qc-result-tier">—</h3>
+      <p class="qc-result-price" id="qc-result-price">—</p>
+      <ul class="qc-result-features" id="qc-result-features"></ul>
+      <div class="qc-result-notes" id="qc-result-notes"></div>
+      <a href="#" class="qc-btn qc-btn-primary qc-whatsapp-cta" id="qc-whatsapp-cta" target="_blank" rel="noopener">
+        <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Get this quote on WhatsApp
+      </a>
+      <a href="#" class="qc-restart" id="qc-restart-link">Start over</a>
+    </div>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
