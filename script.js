@@ -104,6 +104,15 @@ if (!prefersReducedMotion) {
   const progressFill = document.getElementById('qc-progress-fill');
   const progressTrack = document.querySelector('.qc-progress-track');
 
+  const TIERS = {
+    starter: { name: 'Starter', price: 'BZ$600–800', low: 600, high: 800,
+      features: ['Single-page site, up to 4 sections', 'Mobile responsive', 'WhatsApp + contact form', '1 round of revisions', '~1 week delivery'] },
+    standard: { name: 'Standard', price: 'BZ$1,000–1,400', low: 1000, high: 1400,
+      features: ['Up to 5 pages', 'Custom design matched to your brand', 'WhatsApp + contact form + email integration', 'Basic SEO setup', '2 rounds of revisions', '~2–3 week delivery'] },
+    plus: { name: 'Plus', price: 'BZ$1,800–2,400', low: 1800, high: 2400,
+      features: ['Everything in Standard', 'Custom animation / interactive elements', 'Bilingual EN/ES version', 'Basic analytics setup', '3 rounds of revisions', '3 months of Hosting & Maintenance included', '~3–4 week delivery'] }
+  };
+
   function openModal() {
     backdrop.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -115,10 +124,12 @@ if (!prefersReducedMotion) {
 
   openBtns.forEach(btn => btn.addEventListener('click', openModal));
   closeBtn.addEventListener('click', closeModal);
-  backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+  backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  function updateProgress() { progressFill.style.width = (currentStep / totalSteps * 100) + '%'; }
+  function updateProgress() {
+    progressFill.style.width = (currentStep / totalSteps * 100) + '%';
+  }
 
   function goToStep(n) {
     steps.forEach(s => s.classList.remove('active'));
@@ -128,7 +139,7 @@ if (!prefersReducedMotion) {
     backBtn.style.visibility = n === 1 ? 'hidden' : 'visible';
     const q = target.querySelector('[data-question]').dataset.question;
     nextBtn.disabled = !answers[q];
-    nextBtn.textContent = n === totalSteps ? 'See my recommendation' : 'Next';
+    nextBtn.textContent = n === totalSteps ? 'See my estimate' : 'Next';
     updateProgress();
   }
 
@@ -143,69 +154,118 @@ if (!prefersReducedMotion) {
   });
 
   nextBtn.addEventListener('click', () => {
-    if (currentStep < totalSteps) goToStep(currentStep + 1); else showResult();
+    if (currentStep < totalSteps) goToStep(currentStep + 1);
+    else showResult();
   });
   backBtn.addEventListener('click', () => { if (currentStep > 1) goToStep(currentStep - 1); });
 
-  const QC_TIERS = {
-    starter: { name: 'Starter', priceBzd: '$600–800', priceUsd: '≈USD $300–400', low: 600, high: 800,
-      features: ['Single-page site, up to 4 sections', 'Mobile responsive', 'WhatsApp + contact form', '1 round of revisions', 'Delivery in ~1 week'] },
-    standard: { name: 'Standard', priceBzd: '$1,000–1,400', priceUsd: '≈USD $500–700', low: 1000, high: 1400,
-      features: ['Up to 5 pages, custom design', 'WhatsApp + contact form + email', 'Basic SEO setup', '2 rounds of revisions', 'Delivery in ~2-3 weeks'] },
-    plus: { name: 'Plus', priceBzd: '$1,800–2,400', priceUsd: '≈USD $900–1,200', low: 1800, high: 2400,
-      features: ['Everything in Standard', 'Custom animation / interactive elements', 'Bilingual EN/ES version', 'Basic analytics setup', '3 months of support included'] },
-  };
+  function addRange(low, high, amountLow, amountHigh) {
+    return { low: low + amountLow, high: high + amountHigh };
+  }
 
-  function recommendTier() {
-    let tier = 'starter';
-    if (answers.pages === '2-5' || answers.pages === 'unsure') tier = 'standard';
-    if (answers.pages === '6+') tier = 'plus';
-    if (answers.bilingual === 'yes') tier = 'plus';
-    if (answers.animation === 'yes') tier = 'plus';
-    return tier;
+  function calculate() {
+    let tierKey = answers.package;
+    let tier = TIERS[tierKey];
+    let low = tier.low;
+    let high = tier.high;
+    const addOns = [];
+    let upgradeNote = '';
+
+    const pageMap = { none: [0,0], one: [180,180], two: [360,360] };
+    if (answers.pages !== 'none') {
+      const [lo, hi] = pageMap[answers.pages];
+      low += lo; high += hi;
+      addOns.push(`${answers.pages === 'one' ? '1 additional page' : '2 additional pages'}: BZ$${lo}${lo !== hi ? '–' + hi : ''}`);
+    }
+
+    if (answers.bilingual === 'yes' && tierKey !== 'plus') {
+      low += 250; high += 400;
+      addOns.push('Bilingual EN/ES: BZ$250–400');
+    }
+
+    const anim = {
+      none: [0,0,''],
+      light: [80,120,'Light animation: BZ$80–120'],
+      moderate: [150,250,'Moderate animation: BZ$150–250'],
+      full: [300,450,'Full interactive animation: BZ$300–450']
+    };
+    if (tierKey !== 'plus' && answers.animation !== 'none') {
+      const [lo, hi, label] = anim[answers.animation];
+      low += lo; high += hi; addOns.push(label);
+    }
+
+    // Plus already includes bilingual + custom animation, so recommend it when
+    // a Standard/Starter project needs both premium features.
+    if (tierKey !== 'plus' &&
+        answers.bilingual === 'yes' &&
+        answers.animation !== 'none') {
+      const plus = TIERS.plus;
+      upgradeNote = `With bilingual content and ${answers.animation} animation selected, Plus may offer better value because those features are already included.`;
+    }
+
+    let rushLow = low, rushHigh = high;
+    if (answers.timeline === 'rush') {
+      rushLow = Math.round(low * 1.25);
+      rushHigh = Math.round(high * 1.30);
+      addOns.push('Rush delivery: +25–30%');
+    }
+
+    if (answers.ordering === 'yes') {
+      addOns.push('Online ordering / reservations: quoted separately');
+    }
+
+    if (answers.hosting === 'yes') {
+      if (tierKey === 'plus') {
+        addOns.push('Hosting & Maintenance: included for 3 months, then BZ$60/month');
+      } else {
+        addOns.push('Hosting & Maintenance: BZ$60/month');
+      }
+    }
+
+    return { tierKey, tier, low: rushLow, high: rushHigh, addOns, upgradeNote };
   }
 
   function showResult() {
-    const tierKey = recommendTier();
-    const tier = QC_TIERS[tierKey];
+    const result = calculate();
+    const tier = result.tier;
 
     document.getElementById('qc-result-tier').textContent = tier.name;
-    let low = tier.low, high = tier.high;
-    let rushNote = '';
-    if (answers.timeline === 'rush') {
-      rushNote = `Rush delivery adds roughly 25-30% to the total (BZD $${Math.round(low*1.25)}–${Math.round(high*1.3)} with rush included).`;
-    }
-    document.getElementById('qc-result-price').innerHTML = `BZD ${tier.priceBzd} <span style="font-size:0.8rem;color:var(--text-muted);font-weight:500;">(${tier.priceUsd})</span>`;
-    document.getElementById('qc-result-features').innerHTML = tier.features.map(f => `<li><i class="ti ti-check" aria-hidden="true" style="color:var(--violet);margin-right:6px;"></i>${f}</li>`).join('');
+    document.getElementById('qc-result-price').innerHTML =
+      `BZ$${result.low.toLocaleString()}–${result.high.toLocaleString()} <span class="qc-price-label">(estimated project range)</span>`;
 
-    let notes = '';
-    if (answers.pages === '6+') notes += `<p>Sites with 6+ pages may include additional pages beyond the standard 5, billed at BZD $180 each.</p>`;
-    if (answers.ordering === 'yes') notes += `<p>Online ordering / reservation systems are quoted separately based on what you need — not included in the range above.</p>`;
-    if (rushNote) notes += `<p>${rushNote}</p>`;
-    if (answers.hosting === 'yes') notes += `<p>Ongoing hosting & maintenance after launch: BZD $60/month, billed separately.</p>`;
+    document.getElementById('qc-result-features').innerHTML =
+      tier.features.map(f => `<li><i class="ti ti-check" aria-hidden="true"></i>${f}</li>`).join('');
+
+    const notes = [];
+    if (result.addOns.length) notes.push(`<p><strong>Your selections:</strong></p><ul class="qc-addon-list">${result.addOns.map(a => `<li>${a}</li>`).join('')}</ul>`);
+    if (result.upgradeNote) notes.push(`<p class="qc-upgrade-note">${result.upgradeNote}</p>`);
+    notes.push(`<p class="qc-small-note">This is an estimate, not a final quote. Your final price will be confirmed in writing after we review your project.</p>`);
+
     const notesEl = document.getElementById('qc-result-notes');
-    notesEl.style.display = notes ? 'block' : 'none';
-    notesEl.innerHTML = notes;
+    notesEl.style.display = 'block';
+    notesEl.innerHTML = notes.join('');
 
     const summary = [
-      `Hi! I just used the quote tool on your site.`,
-      `Pages: ${answers.pages}`,
+      'Hi! I just used the Cayo Coding Co. quote estimator.',
+      `Package: ${tier.name} (${tier.price})`,
       `Bilingual: ${answers.bilingual}`,
-      `Animation/interactive: ${answers.animation}`,
+      `Additional pages: ${answers.pages}`,
+      `Animation: ${answers.animation}`,
       `Online ordering/booking: ${answers.ordering}`,
       `Timeline: ${answers.timeline}`,
-      `Hosting add-on: ${answers.hosting}`,
-      `Recommended: ${tier.name} (BZD ${tier.priceBzd})`,
-      `Can we talk about my project?`
+      `Hosting & Maintenance: ${answers.hosting}`,
+      `Estimated project range: BZ$${result.low.toLocaleString()}–${result.high.toLocaleString()}`,
+      'Can we talk about my project?'
     ].join('\n');
-    document.getElementById('qc-whatsapp-cta').href = 'https://wa.me/5016214804?text=' + encodeURIComponent(summary);
+    document.getElementById('qc-whatsapp-cta').href =
+      'https://wa.me/5016214804?text=' + encodeURIComponent(summary);
 
     quizForm.style.display = 'none';
     progressTrack.style.display = 'none';
     resultEl.classList.add('active');
   }
 
-  document.getElementById('qc-restart-link').addEventListener('click', (e) => {
+  document.getElementById('qc-restart-link').addEventListener('click', e => {
     e.preventDefault();
     resultEl.classList.remove('active');
     quizForm.style.display = 'block';
@@ -215,5 +275,5 @@ if (!prefersReducedMotion) {
     goToStep(1);
   });
 
-  updateProgress();
+  goToStep(1);
 })();
