@@ -3,18 +3,53 @@
 const form = document.getElementById('contact-form');
 const status = document.getElementById('form-status');
 
+// Helper to retrieve current active language ('en' or 'es')
+function getLang() {
+  return localStorage.getItem('preferredLang') || 'en';
+}
+
+// WhatsApp Dynamic Message Translation
+const WHATSAPP_PHONE = '5016214804';
+const whatsappMessages = {
+  en: 'Hello! I would like to get a quote for a website project.',
+  es: '¡Hola! Me gustaría solicitar una cotización para un proyecto web.'
+};
+
+function updateWhatsAppLinks(lang) {
+  const currentLang = lang || getLang();
+  const message = whatsappMessages[currentLang] || whatsappMessages.en;
+  const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+
+  const navWhatsAppBtn = document.querySelector('.nav-cta');
+  const contactWhatsAppBtn = document.querySelector('.contact-whatsapp');
+
+  if (navWhatsAppBtn) {
+    navWhatsAppBtn.setAttribute('href', whatsappUrl);
+  }
+  if (contactWhatsAppBtn) {
+    contactWhatsAppBtn.setAttribute('href', whatsappUrl);
+  }
+}
+
+// Initial call on page load
+updateWhatsAppLinks();
+
+// Contact Form Handler
 form?.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const formData = new FormData(form);
   const payload = Object.fromEntries(formData);
+  const lang = getLang();
 
   if (payload.access_key === 'YOUR_WEB3FORMS_ACCESS_KEY_HERE') {
-    status.textContent = 'Form is not connected yet — add your Web3Forms access key in index.html.';
+    status.textContent = lang === 'es' 
+      ? 'El formulario no está conectado aún — agregue su clave de acceso de Web3Forms en index.html.' 
+      : 'Form is not connected yet — add your Web3Forms access key in index.html.';
     return;
   }
 
-  status.textContent = 'Sending...';
+  status.textContent = lang === 'es' ? 'Enviando...' : 'Sending...';
 
   fetch('https://api.web3forms.com/submit', {
     method: 'POST',
@@ -24,14 +59,20 @@ form?.addEventListener('submit', function (e) {
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
-        status.textContent = "Message sent, thanks! I'll get back to you soon.";
+        status.textContent = lang === 'es' 
+          ? '¡Mensaje enviado, gracias! Me pondré en contacto con usted pronto.' 
+          : "Message sent, thanks! I'll get back to you soon.";
         form.reset();
       } else {
-        status.textContent = 'Something went wrong. Try WhatsApp instead for now.';
+        status.textContent = lang === 'es' 
+          ? 'Algo salió mal. Por favor intente por WhatsApp mientras tanto.' 
+          : 'Something went wrong. Try WhatsApp instead for now.';
       }
     })
     .catch(() => {
-      status.textContent = 'Something went wrong. Try WhatsApp instead for now.';
+      status.textContent = lang === 'es' 
+        ? 'Algo salió mal. Por favor intente por WhatsApp mientras tanto.' 
+        : 'Something went wrong. Try WhatsApp instead for now.';
     });
 });
 
@@ -105,12 +146,21 @@ if (!prefersReducedMotion) {
   const progressTrack = document.querySelector('.qc-progress-track');
 
   const TIERS = {
-    starter: { name: 'Starter', price: 'BZ$600–800', low: 600, high: 800,
-      features: ['Single-page site, up to 4 sections', 'Mobile responsive', 'WhatsApp + contact form', '1 round of revisions', '~1 week delivery'] },
-    standard: { name: 'Standard', price: 'BZ$1,000–1,400', low: 1000, high: 1400,
-      features: ['Up to 5 pages', 'Custom design matched to your brand', 'WhatsApp + contact form + email integration', 'Basic SEO setup', '2 rounds of revisions', '~2–3 week delivery'] },
-    plus: { name: 'Plus', price: 'BZ$1,800–2,400', low: 1800, high: 2400,
-      features: ['Everything in Standard', 'Custom animation / interactive elements', 'Bilingual EN/ES version', 'Basic analytics setup', '3 rounds of revisions', '3 months of Hosting & Maintenance included', '~3–4 week delivery'] }
+    starter: {
+      en: { name: 'Starter', price: 'BZ$600–800', features: ['Single-page site, up to 4 sections', 'Mobile responsive', 'WhatsApp + contact form', '1 round of revisions', '~1 week delivery'] },
+      es: { name: 'Inicial', price: 'BZ$600–800', features: ['Sitio de una sola página, hasta 4 secciones', 'Diseño adaptable a teléfonos móviles', 'WhatsApp + formulario de contacto', '1 ronda de revisiones', 'Entrega en ~1 semana'] },
+      low: 600, high: 800
+    },
+    standard: {
+      en: { name: 'Standard', price: 'BZ$1,000–1,400', features: ['Up to 5 pages', 'Custom design matched to your brand', 'WhatsApp + contact form + email integration', 'Basic SEO setup', '2 rounds of revisions', '~2–3 week delivery'] },
+      es: { name: 'Estándar', price: 'BZ$1,000–1,400', features: ['Hasta 5 páginas', 'Diseño personalizado alineado a su marca', 'WhatsApp + formulario + integración de correo', 'Optimización básica para buscadores (SEO)', '2 rondas de revisiones', 'Entrega en ~2–3 semanas'] },
+      low: 1000, high: 1400
+    },
+    plus: {
+      en: { name: 'Plus', price: 'BZ$1,800–2,400', features: ['Everything in Standard', 'Custom animation / interactive elements', 'Bilingual EN/ES version', 'Basic analytics setup', '3 rounds of revisions', '3 months of Hosting & Maintenance included', '~3–4 week delivery'] },
+      es: { name: 'Plus', price: 'BZ$1,800–2,400', features: ['Todo lo incluido en Estándar', 'Animaciones y elementos interactivos', 'Versión bilingüe (Inglés/Español)', 'Configuración de analítica web', '3 rondas de revisiones', '3 meses de Alojamiento y Mantenimiento incluidos', 'Entrega en ~3–4 semanas'] },
+      low: 1800, high: 2400
+    }
   };
 
   function openModal() {
@@ -123,23 +173,36 @@ if (!prefersReducedMotion) {
   }
 
   openBtns.forEach(btn => btn.addEventListener('click', openModal));
-  closeBtn.addEventListener('click', closeModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
   function updateProgress() {
-    progressFill.style.width = (currentStep / totalSteps * 100) + '%';
+    if (progressFill) progressFill.style.width = (currentStep / totalSteps * 100) + '%';
   }
 
   function goToStep(n) {
+    const lang = getLang();
     steps.forEach(s => s.classList.remove('active'));
     const target = steps.find(s => Number(s.dataset.step) === n);
+    if (!target) return;
+    
     target.classList.add('active');
     currentStep = n;
-    backBtn.style.visibility = n === 1 ? 'hidden' : 'visible';
+    
+    if (backBtn) {
+      backBtn.style.visibility = n === 1 ? 'hidden' : 'visible';
+      backBtn.textContent = lang === 'es' ? 'Atrás' : 'Back';
+    }
+    
     const q = target.querySelector('[data-question]').dataset.question;
-    nextBtn.disabled = !answers[q];
-    nextBtn.textContent = n === totalSteps ? 'See my estimate' : 'Next';
+    if (nextBtn) {
+      nextBtn.disabled = !answers[q];
+      nextBtn.textContent = n === totalSteps 
+        ? (lang === 'es' ? 'Ver estimación' : 'See my estimate') 
+        : (lang === 'es' ? 'Siguiente' : 'Next');
+    }
+    
     updateProgress();
   }
 
@@ -149,76 +212,86 @@ if (!prefersReducedMotion) {
       group.querySelectorAll('.qc-option').forEach(o => o.classList.remove('selected'));
       opt.classList.add('selected');
       answers[group.dataset.question] = opt.dataset.value;
-      nextBtn.disabled = false;
+      if (nextBtn) nextBtn.disabled = false;
     });
   });
 
-  nextBtn.addEventListener('click', () => {
-    if (currentStep < totalSteps) goToStep(currentStep + 1);
-    else showResult();
-  });
-  backBtn.addEventListener('click', () => { if (currentStep > 1) goToStep(currentStep - 1); });
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentStep < totalSteps) goToStep(currentStep + 1);
+      else showResult();
+    });
+  }
 
-  function addRange(low, high, amountLow, amountHigh) {
-    return { low: low + amountLow, high: high + amountHigh };
+  if (backBtn) {
+    backBtn.addEventListener('click', () => { if (currentStep > 1) goToStep(currentStep - 1); });
   }
 
   function calculate() {
+    const lang = getLang();
     let tierKey = answers.package;
-    let tier = TIERS[tierKey];
-    let low = tier.low;
-    let high = tier.high;
+    let rawTier = TIERS[tierKey];
+    let tier = rawTier[lang];
+    let low = rawTier.low;
+    let high = rawTier.high;
     const addOns = [];
     let upgradeNote = '';
 
+    // Additional Pages
     const pageMap = { none: [0,0], one: [180,180], two: [360,360] };
     if (answers.pages !== 'none') {
       const [lo, hi] = pageMap[answers.pages];
       low += lo; high += hi;
-      addOns.push(`${answers.pages === 'one' ? '1 additional page' : '2 additional pages'}: BZ$${lo}${lo !== hi ? '–' + hi : ''}`);
+      const pageText = answers.pages === 'one' 
+        ? (lang === 'es' ? '1 página adicional' : '1 additional page')
+        : (lang === 'es' ? '2 páginas adicionales' : '2 additional pages');
+      addOns.push(`${pageText}: BZ$${lo}${lo !== hi ? '–' + hi : ''}`);
     }
 
+    // Bilingual Add-on
     if (answers.bilingual === 'yes' && tierKey !== 'plus') {
       low += 250; high += 400;
-      addOns.push('Bilingual EN/ES: BZ$250–400');
+      addOns.push(lang === 'es' ? 'Versión bilingüe (EN/ES): BZ$250–400' : 'Bilingual EN/ES: BZ$250–400');
     }
 
+    // Animation
     const anim = {
-      none: [0,0,''],
-      light: [80,120,'Light animation: BZ$80–120'],
-      moderate: [150,250,'Moderate animation: BZ$150–250'],
-      full: [300,450,'Full interactive animation: BZ$300–450']
+      none: [0, 0, ''],
+      light: [80, 120, lang === 'es' ? 'Animaciones ligeras: BZ$80–120' : 'Light animation: BZ$80–120'],
+      moderate: [150, 250, lang === 'es' ? 'Animaciones moderadas: BZ$150–250' : 'Moderate animation: BZ$150–250'],
+      full: [300, 450, lang === 'es' ? 'Interactividad avanzada: BZ$300–450' : 'Full interactive animation: BZ$300–450']
     };
     if (tierKey !== 'plus' && answers.animation !== 'none') {
       const [lo, hi, label] = anim[answers.animation];
       low += lo; high += hi; addOns.push(label);
     }
 
-    // Plus already includes bilingual + custom animation, so recommend it when
-    // a Standard/Starter project needs both premium features.
-    if (tierKey !== 'plus' &&
-        answers.bilingual === 'yes' &&
-        answers.animation !== 'none') {
-      const plus = TIERS.plus;
-      upgradeNote = `With bilingual content and ${answers.animation} animation selected, Plus may offer better value because those features are already included.`;
+    // Plus Upgrade Recommendation
+    if (tierKey !== 'plus' && answers.bilingual === 'yes' && answers.animation !== 'none') {
+      upgradeNote = lang === 'es'
+        ? `Al seleccionar contenido bilingüe y animación ${answers.animation}, el paquete Plus puede ofrecer mejor valor ya que esas funciones ya están incluidas.`
+        : `With bilingual content and ${answers.animation} animation selected, Plus may offer better value because those features are already included.`;
     }
 
+    // Timeline
     let rushLow = low, rushHigh = high;
     if (answers.timeline === 'rush') {
       rushLow = Math.round(low * 1.25);
       rushHigh = Math.round(high * 1.30);
-      addOns.push('Rush delivery: +25–30%');
+      addOns.push(lang === 'es' ? 'Entrega urgente: +25–30%' : 'Rush delivery: +25–30%');
     }
 
+    // Online Ordering
     if (answers.ordering === 'yes') {
-      addOns.push('Online ordering / reservations: quoted separately');
+      addOns.push(lang === 'es' ? 'Pedidos / reservas en línea: cotizado por separado' : 'Online ordering / reservations: quoted separately');
     }
 
+    // Hosting
     if (answers.hosting === 'yes') {
       if (tierKey === 'plus') {
-        addOns.push('Hosting & Maintenance: included for 3 months, then BZ$60/month');
+        addOns.push(lang === 'es' ? 'Alojamiento y Mantenimiento: incluido por 3 meses, luego BZ$60/mes' : 'Hosting & Maintenance: included for 3 months, then BZ$60/month');
       } else {
-        addOns.push('Hosting & Maintenance: BZ$60/month');
+        addOns.push(lang === 'es' ? 'Alojamiento y Mantenimiento: BZ$60/mes' : 'Hosting & Maintenance: BZ$60/month');
       }
     }
 
@@ -226,26 +299,50 @@ if (!prefersReducedMotion) {
   }
 
   function showResult() {
+    const lang = getLang();
     const result = calculate();
     const tier = result.tier;
 
     document.getElementById('qc-result-tier').textContent = tier.name;
+    
+    const priceLabel = lang === 'es' ? '(rango estimado del proyecto)' : '(estimated project range)';
     document.getElementById('qc-result-price').innerHTML =
-      `BZ$${result.low.toLocaleString()}–${result.high.toLocaleString()} <span class="qc-price-label">(estimated project range)</span>`;
+      `BZ$${result.low.toLocaleString()}–${result.high.toLocaleString()} <span class="qc-price-label">${priceLabel}</span>`;
 
     document.getElementById('qc-result-features').innerHTML =
       tier.features.map(f => `<li><i class="ti ti-check" aria-hidden="true"></i>${f}</li>`).join('');
 
     const notes = [];
-    if (result.addOns.length) notes.push(`<p><strong>Your selections:</strong></p><ul class="qc-addon-list">${result.addOns.map(a => `<li>${a}</li>`).join('')}</ul>`);
-    if (result.upgradeNote) notes.push(`<p class="qc-upgrade-note">${result.upgradeNote}</p>`);
-    notes.push(`<p class="qc-small-note">This is an estimate, not a final quote. Your final price will be confirmed in writing after we review your project.</p>`);
+    const selectionsHeading = lang === 'es' ? 'Sus selecciones:' : 'Your selections:';
+    if (result.addOns.length) {
+      notes.push(`<p><strong>${selectionsHeading}</strong></p><ul class="qc-addon-list">${result.addOns.map(a => `<li>${a}</li>`).join('')}</ul>`);
+    }
+    if (result.upgradeNote) {
+      notes.push(`<p class="qc-upgrade-note">${result.upgradeNote}</p>`);
+    }
+
+    const smallNote = lang === 'es'
+      ? 'Esta es una estimación, no una cotización final. El precio final se confirmará por escrito después de revisar su proyecto.'
+      : 'This is an estimate, not a final quote. Your final price will be confirmed in writing after we review your project.';
+    notes.push(`<p class="qc-small-note">${smallNote}</p>`);
 
     const notesEl = document.getElementById('qc-result-notes');
     notesEl.style.display = 'block';
     notesEl.innerHTML = notes.join('');
 
-    const summary = [
+    // Pre-filled WhatsApp CTA Link
+    const summary = lang === 'es' ? [
+      '¡Hola! Acabo de usar el estimador de presupuesto de Cayo Coding Co.',
+      `Paquete: ${tier.name} (${tier.price})`,
+      `Bilingüe: ${answers.bilingual === 'yes' ? 'Sí' : 'No'}`,
+      `Páginas adicionales: ${answers.pages}`,
+      `Animación: ${answers.animation}`,
+      `Pedidos/reservas en línea: ${answers.ordering === 'yes' ? 'Sí' : 'No'}`,
+      `Plazo de entrega: ${answers.timeline}`,
+      `Alojamiento y Mantenimiento: ${answers.hosting === 'yes' ? 'Sí' : 'No'}`,
+      `Rango estimado del proyecto: BZ$${result.low.toLocaleString()}–${result.high.toLocaleString()}`,
+      '¿Podemos hablar sobre mi proyecto?'
+    ].join('\n') : [
       'Hi! I just used the Cayo Coding Co. quote estimator.',
       `Package: ${tier.name} (${tier.price})`,
       `Bilingual: ${answers.bilingual}`,
@@ -257,23 +354,51 @@ if (!prefersReducedMotion) {
       `Estimated project range: BZ$${result.low.toLocaleString()}–${result.high.toLocaleString()}`,
       'Can we talk about my project?'
     ].join('\n');
-    document.getElementById('qc-whatsapp-cta').href =
-      'https://wa.me/5016214804?text=' + encodeURIComponent(summary);
 
-    quizForm.style.display = 'none';
-    progressTrack.style.display = 'none';
-    resultEl.classList.add('active');
+    const waBtn = document.getElementById('qc-whatsapp-cta');
+    if (waBtn) {
+      waBtn.href = 'https://wa.me/5016214804?text=' + encodeURIComponent(summary);
+      const waBtnText = waBtn.querySelector('span');
+      if (waBtnText) {
+        waBtnText.textContent = lang === 'es' ? 'Consultar esta estimación por WhatsApp' : 'Discuss this estimate on WhatsApp';
+      }
+    }
+
+    if (quizForm) quizForm.style.display = 'none';
+    if (progressTrack) progressTrack.style.display = 'none';
+    if (resultEl) resultEl.classList.add('active');
   }
 
-  document.getElementById('qc-restart-link').addEventListener('click', e => {
-    e.preventDefault();
-    resultEl.classList.remove('active');
-    quizForm.style.display = 'block';
-    progressTrack.style.display = 'block';
-    backdrop.querySelectorAll('.qc-option.selected').forEach(o => o.classList.remove('selected'));
-    Object.keys(answers).forEach(k => delete answers[k]);
-    goToStep(1);
-  });
+  const restartLink = document.getElementById('qc-restart-link');
+  if (restartLink) {
+    restartLink.addEventListener('click', e => {
+      e.preventDefault();
+      if (resultEl) resultEl.classList.remove('active');
+      if (quizForm) quizForm.style.display = 'block';
+      if (progressTrack) progressTrack.style.display = 'block';
+      backdrop.querySelectorAll('.qc-option.selected').forEach(o => o.classList.remove('selected'));
+      Object.keys(answers).forEach(k => delete answers[k]);
+      goToStep(1);
+    });
+  }
+
+  // Language Switch Listener — updates step button labels & general WhatsApp links dynamically when language switches
+  const btnEn = document.getElementById('btn-en');
+  const btnEs = document.getElementById('btn-es');
+
+  if (btnEn) {
+    btnEn.addEventListener('click', () => {
+      goToStep(currentStep);
+      updateWhatsAppLinks('en');
+    });
+  }
+
+  if (btnEs) {
+    btnEs.addEventListener('click', () => {
+      goToStep(currentStep);
+      updateWhatsAppLinks('es');
+    });
+  }
 
   goToStep(1);
 })();

@@ -15,6 +15,40 @@
 <link rel="icon" type="image/png" sizes="256x256" href="images/logo-256.png">
 <link rel="icon" type="image/png" sizes="512x512" href="images/logo-512.png">
 <link rel="apple-touch-icon" sizes="1024x1024" href="images/logo-1024.png">
+
+<style>
+  /* Language Switcher Styling */
+  .lang-switch {
+    display: inline-flex;
+    gap: 4px;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 3px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-left: 0.5rem;
+  }
+
+  .lang-btn {
+    background: transparent;
+    border: none;
+    color: #8b949e;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .lang-btn:hover {
+    color: #c9d1d9;
+  }
+
+  .lang-btn.active {
+    background-color: #a86bd9;
+    color: #ffffff;
+  }
+</style>
 </head>
 <body>
 
@@ -24,14 +58,18 @@
     <span>Cayo Coding Co.</span>
   </a>
   <nav class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#investment">Pricing</a>
-    <a href="#profile">Profile</a>
-    <a href="#process">Process</a>
-    <a href="#contact">Contact</a>
+    <a href="#services" data-en="Services" data-es="Servicios">Services</a>
+    <a href="#investment" data-en="Pricing" data-es="Precios">Pricing</a>
+    <a href="#profile" data-en="Profile" data-es="Portafolio">Profile</a>
+    <a href="#process" data-en="Process" data-es="Proceso">Process</a>
+    <a href="#contact" data-en="Contact" data-es="Contacto">Contact</a>
   </nav>
   <div class="nav-actions">
-    <button type="button" class="nav-estimator-btn open-estimator-btn"><i class="ti ti-calculator" aria-hidden="true"></i> Get a Quote</button>
+    <div class="lang-switch">
+      <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
+      <button id="btn-es" class="lang-btn" onclick="setLanguage('es')">ES</button>
+    </div>
+    <button type="button" class="nav-estimator-btn open-estimator-btn"><i class="ti ti-calculator" aria-hidden="true"></i> <span data-en="Get a Quote" data-es="Cotizar">Get a Quote</span></button>
     <a href="https://wa.me/5016214804?text=Hi%20Cayo%20Coding%20Co%2C%20I%27d%20like%20to%20talk%20about%20a%20website" class="nav-cta"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp</a>
   </div>
 </header>
@@ -81,113 +119,113 @@
       </g>
     </svg>
     <div class="hero-content">
-      <h1>Websites that look like you mean business.</h1>
-      <p class="hero-sub">No templates, no back-and-forth guesswork. Just a custom-built website for your business in Belize, done right the first time.</p>
+      <h1 data-en="Websites that look like you mean business." data-es="Sitios web diseñados para hacer crecer su negocio.">Websites that look like you mean business.</h1>
+      <p class="hero-sub" data-en="No templates, no back-and-forth guesswork. Just a custom-built website for your business in Belize, done right the first time." data-es="Sin plantillas genéricas ni complicaciones. Solo un sitio web hecho a la medida para su empresa en Belice, bien hecho desde el primer día.">No templates, no back-and-forth guesswork. Just a custom-built website for your business in Belize, done right the first time.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">Start a project</a>
-        <a href="#profile" class="btn btn-secondary">See the work</a>
+        <a href="#contact" class="btn btn-primary" data-en="Start a project" data-es="Iniciar un proyecto">Start a project</a>
+        <a href="#profile" class="btn btn-secondary" data-en="See the work" data-es="Ver portafolio">See the work</a>
       </div>
     </div>
   </section>
 
   <section class="section reveal" id="services">
-    <p class="eyebrow">Services</p>
-    <h2>What you actually get</h2>
+    <p class="eyebrow" data-en="Services" data-es="Servicios">Services</p>
+    <h2 data-en="What you actually get" data-es="Lo que realmente obtiene">What you actually get</h2>
     <div class="card-grid">
       <div class="card">
         <div class="card-icon"><i class="ti ti-code" aria-hidden="true"></i></div>
-        <h3>A site built to convert</h3>
-        <p>Custom-designed and built for your business, so it looks professional, loads fast, and turns visitors into customers (not a generic template with your logo swapped in).</p>
+        <h3 data-en="A site built to convert" data-es="Un sitio diseñado para convertir">A site built to convert</h3>
+        <p data-en="Custom-designed and built for your business, so it looks professional, loads fast, and turns visitors into customers (not a generic template with your logo swapped in)." data-es="Diseñado y construido a la medida para su empresa, para que luzca profesional, cargue rápido y convierta visitantes en clientes (no una plantilla genérica con su logo).">Custom-designed and built for your business, so it looks professional, loads fast, and turns visitors into customers (not a generic template with your logo swapped in).</p>
       </div>
       <div class="card">
         <div class="card-icon"><i class="ti ti-server" aria-hidden="true"></i></div>
-        <h3>Hosting, sorted</h3>
-        <p>Your site goes live on reliable hosting with a proper domain. No confusing dashboards left for you to figure out.</p>
+        <h3 data-en="Hosting, sorted" data-es="Alojamiento web resuelto">Hosting, sorted</h3>
+        <p data-en="Your site goes live on reliable hosting with a proper domain. No confusing dashboards left for you to figure out." data-es="Su sitio web se publica en un servidor confiable y con dominio propio. Sin paneles confusos que usted tenga que resolver solo.">Your site goes live on reliable hosting with a proper domain. No confusing dashboards left for you to figure out.</p>
       </div>
       <div class="card">
         <div class="card-icon"><i class="ti ti-message-circle" aria-hidden="true"></i></div>
-        <h3>A person to call</h3>
-        <p>Based in Cayo, reachable on WhatsApp. When you need a change, you message a real person, not a support ticket.</p>
+        <h3 data-en="A person to call" data-es="Atención directa y local">A person to call</h3>
+        <p data-en="Based in Cayo, reachable on WhatsApp. When you need a change, you message a real person, not a support ticket." data-es="Ubicados en Cayo, disponibles por WhatsApp. Cuando necesite un cambio, hablará con una persona real, no con un sistema de tickets.">Based in Cayo, reachable on WhatsApp. When you need a change, you message a real person, not a support ticket.</p>
       </div>
     </div>
   </section>
 
 <section class="section reveal" id="investment">
-    <p class="eyebrow">Website Packages</p>
-    <h2>Choose the level that fits your business.</h2>
-    <p class="body-text">Clear starting ranges, practical features, and room to customize. Every project still gets a final written quote before work begins.</p>
+    <p class="eyebrow" data-en="Website Packages" data-es="Paquetes Web">Website Packages</p>
+    <h2 data-en="Choose the level that fits your business." data-es="Elija el nivel que mejor se adapte a su empresa.">Choose the level that fits your business.</h2>
+    <p class="body-text" data-en="Clear starting ranges, practical features, and room to customize. Every project still gets a final written quote before work begins." data-es="Precios transparentes, funciones prácticas y flexibilidad para personalizar. Cada proyecto recibe una cotización por escrito antes de comenzar.">Clear starting ranges, practical features, and room to customize. Every project still gets a final written quote before work begins.</p>
 
     <div class="pricing-grid">
       <article class="pricing-card">
-        <p class="pricing-label">Starter</p>
+        <p class="pricing-label" data-en="Starter" data-es="Inicial">Starter</p>
         <h3>BZ$600–800</h3>
         <p class="pricing-usd">≈ USD $300–400</p>
-        <p class="pricing-best">For a business that needs a clean, credible online presence.</p>
+        <p class="pricing-best" data-en="For a business that needs a clean, credible online presence." data-es="Para empresas que necesitan una presencia web limpia y profesional.">For a business that needs a clean, credible online presence.</p>
         <ul>
-          <li>Single-page site, up to 4 sections</li>
-          <li>Mobile responsive</li>
-          <li>WhatsApp + contact form</li>
-          <li>1 round of revisions</li>
-          <li>~1 week delivery</li>
+          <li data-en="Single-page site, up to 4 sections" data-es="Sitio de una sola página, hasta 4 secciones">Single-page site, up to 4 sections</li>
+          <li data-en="Mobile responsive" data-es="Diseño adaptable a teléfonos móviles">Mobile responsive</li>
+          <li data-en="WhatsApp + contact form" data-es="Integración con WhatsApp y formulario">WhatsApp + contact form</li>
+          <li data-en="1 round of revisions" data-es="1 ronda de revisiones">1 round of revisions</li>
+          <li data-en="~1 week delivery" data-es="Entrega en ~1 semana">~1 week delivery</li>
         </ul>
       </article>
 
       <article class="pricing-card pricing-featured">
-        <span class="pricing-badge">Most Popular</span>
-        <p class="pricing-label">Standard</p>
+        <span class="pricing-badge" data-en="Most Popular" data-es="Más Popular">Most Popular</span>
+        <p class="pricing-label" data-en="Standard" data-es="Estándar">Standard</p>
         <h3>BZ$1,000–1,400</h3>
         <p class="pricing-usd">≈ USD $500–700</p>
-        <p class="pricing-best">For a business that wants a real multi-page site with some polish.</p>
+        <p class="pricing-best" data-en="For a business that wants a real multi-page site with some polish." data-es="Para empresas que buscan un sitio multipágina completo y pulido.">For a business that wants a real multi-page site with some polish.</p>
         <ul>
-          <li>Up to 5 pages</li>
-          <li>Custom design matched to your brand</li>
-          <li>WhatsApp + contact form + email integration</li>
-          <li>Basic SEO setup</li>
-          <li>2 rounds of revisions</li>
-          <li>~2–3 week delivery</li>
+          <li data-en="Up to 5 pages" data-es="Hasta 5 páginas">Up to 5 pages</li>
+          <li data-en="Custom design matched to your brand" data-es="Diseño personalizado alineado a su marca">Custom design matched to your brand</li>
+          <li data-en="WhatsApp + contact form + email integration" data-es="WhatsApp + formulario + integración de correo">WhatsApp + contact form + email integration</li>
+          <li data-en="Basic SEO setup" data-es="Optimización básica para buscadores (SEO)">Basic SEO setup</li>
+          <li data-en="2 rounds of revisions" data-es="2 rondas de revisiones">2 rounds of revisions</li>
+          <li data-en="~2–3 week delivery" data-es="Entrega en ~2–3 semanas">~2–3 week delivery</li>
         </ul>
       </article>
 
       <article class="pricing-card">
-        <p class="pricing-label">Plus</p>
+        <p class="pricing-label" data-en="Plus" data-es="Plus">Plus</p>
         <h3>BZ$1,800–2,400</h3>
         <p class="pricing-usd">≈ USD $900–1,200</p>
-        <p class="pricing-best">For a business ready to stand out and invest in the experience.</p>
+        <p class="pricing-best" data-en="For a business ready to stand out and invest in the experience." data-es="Para negocios listos para destacar e invertir en una experiencia superior.">For a business ready to stand out and invest in the experience.</p>
         <ul>
-          <li>Everything in Standard</li>
-          <li>Custom animation / interactive elements</li>
-          <li>Bilingual EN/ES version</li>
-          <li>Basic analytics setup</li>
-          <li>3 rounds of revisions</li>
-          <li>3 months of Hosting &amp; Maintenance included</li>
-          <li>~3–4 week delivery</li>
+          <li data-en="Everything in Standard" data-es="Todo lo incluido en Estándar">Everything in Standard</li>
+          <li data-en="Custom animation / interactive elements" data-es="Animaciones y elementos interactivos">Custom animation / interactive elements</li>
+          <li data-en="Bilingual EN/ES version" data-es="Versión bilingüe (Inglés/Español)">Bilingual EN/ES version</li>
+          <li data-en="Basic analytics setup" data-es="Configuración de analítica web">Basic analytics setup</li>
+          <li data-en="3 rounds of revisions" data-es="3 rondas de revisiones">3 rounds of revisions</li>
+          <li data-en="3 months of Hosting &amp; Maintenance included" data-es="3 meses de Alojamiento y Mantenimiento incluidos">3 months of Hosting &amp; Maintenance included</li>
+          <li data-en="~3–4 week delivery" data-es="Entrega en ~3–4 semanas">~3–4 week delivery</li>
         </ul>
       </article>
     </div>
 
     <div class="pricing-estimator-cta">
       <div>
-        <p class="eyebrow">Need a custom estimate?</p>
-        <h3>Build your estimate in under a minute.</h3>
-        <p>Choose a package, add the extras you need, and get a realistic project range before you reach out.</p>
+        <p class="eyebrow" data-en="Need a custom estimate?" data-es="¿Necesita un presupuesto estimado?">Need a custom estimate?</p>
+        <h3 data-en="Build your estimate in under a minute." data-es="Calcule su presupuesto en menos de un minuto.">Build your estimate in under a minute.</h3>
+        <p data-en="Choose a package, add the extras you need, and get a realistic project range before you reach out." data-es="Seleccione un paquete, añada las opciones que necesite y obtenga un estimado realista antes de contactarnos.">Choose a package, add the extras you need, and get a realistic project range before you reach out.</p>
       </div>
-      <button type="button" class="btn btn-secondary open-estimator-btn"><i class="ti ti-calculator" aria-hidden="true"></i> Start the quote estimator</button>
+      <button type="button" class="btn btn-secondary open-estimator-btn"><i class="ti ti-calculator" aria-hidden="true"></i> <span data-en="Start the quote estimator" data-es="Iniciar estimador de presupuesto">Start the quote estimator</span></button>
     </div>
   </section>
 
 <section class="section reveal" id="profile">
-    <p class="eyebrow">Profile</p>
-    <h2>Selected Work</h2>
+    <p class="eyebrow" data-en="Profile" data-es="Portafolio">Profile</p>
+    <h2 data-en="Selected Work" data-es="Proyectos Destacados">Selected Work</h2>
     <div class="portfolio-list">
       <a class="portfolio-row" href="https://cayocodingco.github.io/sabordelcayotemplate/" target="_blank" rel="noopener">
         <div class="thumb-frame">
           <img src="images/sabor-thumb.jpg" alt="Sabor del Cayo website screenshot" class="thumb-img">
         </div>
         <div class="portfolio-text">
-          <div class="tags"><span class="tag">Restaurant</span><span class="tag">Belize</span></div>
+          <div class="tags"><span class="tag" data-en="Restaurant" data-es="Restaurante">Restaurant</span><span class="tag">Belize</span></div>
           <h3>Sabor del Cayo</h3>
-          <p>A one-page site for a home-style Belizean restaurant with menu, gallery, and a contact form built to fill tables.</p>
-          <span class="portfolio-link">Visit site <i class="ti ti-external-link" aria-hidden="true"></i></span>
+          <p data-en="A one-page site for a home-style Belizean restaurant with menu, gallery, and a contact form built to fill tables." data-es="Sitio web de una página para un restaurante de comida beliceña con menú, galería y formulario para reservas.">A one-page site for a home-style Belizean restaurant with menu, gallery, and a contact form built to fill tables.</p>
+          <span class="portfolio-link"><span data-en="Visit site" data-es="Visitar sitio">Visit site</span> <i class="ti ti-external-link" aria-hidden="true"></i></span>
         </div>
       </a>
       <a class="portfolio-row" href="https://crystalclearpoolcare.vercel.app/" target="_blank" rel="noopener">
@@ -195,38 +233,38 @@
           <img src="images/pool-thumb.jpg" alt="Crystal Clear Pool Care website screenshot" class="thumb-img">
         </div>
         <div class="portfolio-text">
-          <div class="tags"><span class="tag">Service</span><span class="tag">Booking</span></div>
+          <div class="tags"><span class="tag" data-en="Service" data-es="Servicios">Service</span><span class="tag" data-en="Booking" data-es="Reservas">Booking</span></div>
           <h3>Crystal Clear Pool Care</h3>
-          <p>A service-area site with WhatsApp-first booking, built to turn "just looking" visitors into quote requests.</p>
-          <span class="portfolio-link">Visit site <i class="ti ti-external-link" aria-hidden="true"></i></span>
+          <p data-en="A service-area site with WhatsApp-first booking, built to turn 'just looking' visitors into quote requests." data-es="Sitio enfocando en servicios con reservas directas vía WhatsApp, diseñado para convertir visitas en clientes.">A service-area site with WhatsApp-first booking, built to turn "just looking" visitors into quote requests.</p>
+          <span class="portfolio-link"><span data-en="Visit site" data-es="Visitar sitio">Visit site</span> <i class="ti ti-external-link" aria-hidden="true"></i></span>
         </div>
       </a>
     </div>
   </section>
 
 <section class="section reveal" id="process">
-    <p class="eyebrow">How it works</p>
-    <h2>Four steps, no surprises</h2>
+    <p class="eyebrow" data-en="How it works" data-es="Cómo funciona">How it works</p>
+    <h2 data-en="Four steps, no surprises" data-es="Cuatro pasos, sin sorpresas">Four steps, no surprises</h2>
     <div class="process-grid">
       <div class="process-step">
         <div class="step-num">01</div>
-        <h3>Scope & deposit</h3>
-        <p>We talk through what you need. Once we agree on scope, a 50% deposit gets things started.</p>
+        <h3 data-en="Scope & deposit" data-es="Alcance y depósito">Scope & deposit</h3>
+        <p data-en="We talk through what you need. Once we agree on scope, a 50% deposit gets things started." data-es="Definimos juntos lo que necesita. Al acordar el alcance, se inicia el proyecto con un depósito del 50%.">We talk through what you need. Once we agree on scope, a 50% deposit gets things started.</p>
       </div>
       <div class="process-step">
         <div class="step-num">02</div>
-        <h3>Build</h3>
-        <p>I build your site and share a live preview link so you can watch it take shape.</p>
+        <h3 data-en="Build" data-es="Desarrollo">Build</h3>
+        <p data-en="I build your site and share a live preview link so you can watch it take shape." data-es="Construyo su sitio y le comparto un enlace de vista previa en vivo para dar seguimiento al avance.">I build your site and share a live preview link so you can watch it take shape.</p>
       </div>
       <div class="process-step">
         <div class="step-num">03</div>
-        <h3>Revise</h3>
-        <p>You send feedback, I make changes. Revision rounds are capped up front so there's no scope creep on either side.</p>
+        <h3 data-en="Revise" data-es="Revisiones">Revise</h3>
+        <p data-en="You send feedback, I make changes. Revision rounds are capped up front so there's no scope creep on either side." data-es="Ajustamos detalles según sus comentarios. Las rondas de revisión se acuerdan desde el inicio con claridad.">You send feedback, I make changes. Revision rounds are capped up front so there's no scope creep on either side.</p>
       </div>
       <div class="process-step">
         <div class="step-num">04</div>
-        <h3>Handoff & launch</h3>
-        <p>Final payment, and the site (along with everything in it) is yours.</p>
+        <h3 data-en="Handoff & launch" data-es="Entrega y lanzamiento">Handoff & launch</h3>
+        <p data-en="Final payment, and the site (along with everything in it) is yours." data-es="Se realiza el pago final y el sitio web (junto con todo su contenido) pasa a ser totalmente suyo.">Final payment, and the site (along with everything in it) is yours.</p>
       </div>
     </div>
   </section>
@@ -272,35 +310,38 @@
       </g>
     </svg>
     <div class="about-content">
-      <p class="eyebrow">About</p>
-      <h2>Who's building it</h2>
-      <p class="body-text">I'm Ali, based in the Cayo District. My background is in cybersecurity and software, and I started Cayo Coding Co. to bring proper, custom-built websites to local businesses: the kind bigger agencies price out of reach and template builders can't quite deliver. Bilingual in English and Spanish, and always reachable on WhatsApp.</p>
+      <p class="eyebrow" data-en="About" data-es="Sobre mí">About</p>
+      <h2 data-en="Who's building it" data-es="Quién está detrás">Who's building it</h2>
+      <p class="body-text" data-en="I'm Ali, based in the Cayo District. My background is in cybersecurity and software, and I started Cayo Coding Co. to bring proper, custom-built websites to local businesses: the kind bigger agencies price out of reach and template builders can't quite deliver. Bilingual in English and Spanish, and always reachable on WhatsApp." data-es="Soy Ali, radicado en el distrito de Cayo. Mi trayectoria abarca la ciberseguridad y el software, y creé Cayo Coding Co. para ofrecer sitios web profesionales y personalizados a empresas locales: la calidad que las grandes agencias cobran en exceso y que los creadores de plantillas no logran ofrecer. Bilingüe en inglés y español, y siempre disponible en WhatsApp.">I'm Ali, based in the Cayo District. My background is in cybersecurity and software, and I started Cayo Coding Co. to bring proper, custom-built websites to local businesses: the kind bigger agencies price out of reach and template builders can't quite deliver. Bilingual in English and Spanish, and always reachable on WhatsApp.</p>
     </div>
   </section>
 
 <section class="section reveal" id="contact">
-    <p class="eyebrow">Contact</p>
-    <h2>Let's talk about your site</h2>
+    <p class="eyebrow" data-en="Contact" data-es="Contacto">Contact</p>
+    <h2 data-en="Let's talk about your site" data-es="Hablemos de su proyecto">Let's talk about your site</h2>
     <div class="contact-grid">
       <div class="contact-info">
         <a href="https://wa.me/5016214804?text=Hi%20Cayo%20Coding%20Co%2C%20I%27d%20like%20to%20talk%20about%20a%20website" class="btn btn-primary contact-whatsapp">
-          <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Message on WhatsApp
+          <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> <span data-en="Message on WhatsApp" data-es="Enviar mensaje por WhatsApp">Message on WhatsApp</span>
         </a>
-        <p class="contact-alt">Or reach out by email: <a href="mailto:cayocodingco@protonmail.com">cayocodingco@protonmail.com</a></p>
+        <p class="contact-alt"><span data-en="Or reach out by email:" data-es="O por correo electrónico:">Or reach out by email:</span> <a href="mailto:cayocodingco@protonmail.com">cayocodingco@protonmail.com</a></p>
       </div>
       <form class="contact-form" id="contact-form">
         <input type="hidden" name="access_key" value="5e6b83d6-bdba-4fac-bbb1-75c60c446069">
         <input type="hidden" name="subject" value="New message from Cayo Coding Co site">
         <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
 
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required>
-        <label for="business">Business name</label>
-        <input type="text" id="business" name="business" placeholder="Your business (if you have one)">
-        <label for="message">What do you need?</label>
-        <textarea id="message" name="message" rows="4" placeholder="Tell me a bit about your project" required></textarea>
-        <button type="submit" class="btn btn-primary">Send message</button>
-        <p class="form-note" id="form-status">Submissions go straight to cayocodingco@protonmail.com via Web3Forms.</p>
+        <label for="name" data-en="Name" data-es="Nombre">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" data-en-ph="Your name" data-es-ph="Su nombre" required>
+        
+        <label for="business" data-en="Business name" data-es="Nombre de su empresa">Business name</label>
+        <input type="text" id="business" name="business" placeholder="Your business (if you have one)" data-en-ph="Your business (if you have one)" data-es-ph="Su empresa (si aplica)">
+        
+        <label for="message" data-en="What do you need?" data-es="¿Qué tipo de sitio necesita?">What do you need?</label>
+        <textarea id="message" name="message" rows="4" placeholder="Tell me a bit about your project" data-en-ph="Tell me a bit about your project" data-es-ph="Cuénteme un poco sobre su proyecto" required></textarea>
+        
+        <button type="submit" class="btn btn-primary" data-en="Send message" data-es="Enviar mensaje">Send message</button>
+        <p class="form-note" id="form-status" data-en="Submissions go straight to cayocodingco@protonmail.com via Web3Forms." data-es="Los mensajes se envían directamente a cayocodingco@protonmail.com vía Web3Forms.">Submissions go straight to cayocodingco@protonmail.com via Web3Forms.</p>
       </form>
     </div>
   </section>
@@ -315,8 +356,8 @@
 </a>
 
 <footer class="footer">
-  <p>Cayo Coding Co. | based in the Cayo District, Belize.</p>
-  <p class="footer-muted">© 2026 Cayo Coding Co. All rights reserved.</p>
+  <p data-en="Cayo Coding Co. | based in the Cayo District, Belize." data-es="Cayo Coding Co. | ubicados en el distrito de Cayo, Belice.">Cayo Coding Co. | based in the Cayo District, Belize.</p>
+  <p class="footer-muted" data-en="© 2026 Cayo Coding Co. All rights reserved." data-es="© 2026 Cayo Coding Co. Todos los derechos reservados.">© 2026 Cayo Coding Co. All rights reserved.</p>
 </footer>
 
 <!-- Quote Estimator Modal -->
@@ -327,95 +368,133 @@
 
     <form id="qc-quiz">
       <div class="qc-step active" data-step="1">
-        <p class="qc-step-label">Step 1 of 7</p>
-        <p class="qc-question">Which package sounds closest to what you need?</p>
+        <p class="qc-step-label"><span data-en="Step 1 of 7" data-es="Paso 1 de 7">Step 1 of 7</span></p>
+        <p class="qc-question" data-en="Which package sounds closest to what you need?" data-es="¿Qué paquete se adapta mejor a lo que busca?">Which package sounds closest to what you need?</p>
         <div class="qc-options" data-question="package">
-          <div class="qc-option" data-value="starter"><span class="qc-check"></span><span class="qc-opt-text">Starter<span class="qc-opt-sub">Simple, professional one-page presence • BZ$600–800</span></span></div>
-          <div class="qc-option" data-value="standard"><span class="qc-check"></span><span class="qc-opt-text">Standard<span class="qc-opt-sub">Complete multi-page business website • BZ$1,000–1,400</span></span></div>
-          <div class="qc-option" data-value="plus"><span class="qc-check"></span><span class="qc-opt-text">Plus<span class="qc-opt-sub">Premium, interactive, bilingual experience • BZ$1,800–2,400</span></span></div>
+          <div class="qc-option" data-value="starter"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Starter" data-es="Inicial">Starter</span><span class="qc-opt-sub" data-en="Simple, professional one-page presence • BZ$600–800" data-es="Presencia profesional de una sola página • BZ$600–800">Simple, professional one-page presence • BZ$600–800</span></span></div>
+          <div class="qc-option" data-value="standard"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Standard" data-es="Estándar">Standard</span><span class="qc-opt-sub" data-en="Complete multi-page business website • BZ$1,000–1,400" data-es="Sitio web multipágina completo para empresas • BZ$1,000–1,400">Complete multi-page business website • BZ$1,000–1,400</span></span></div>
+          <div class="qc-option" data-value="plus"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Plus" data-es="Plus">Plus</span><span class="qc-opt-sub" data-en="Premium, interactive, bilingual experience • BZ$1,800–2,400" data-es="Experiencia interactiva, bilingüe y premium • BZ$1,800–2,400">Premium, interactive, bilingual experience • BZ$1,800–2,400</span></span></div>
         </div>
       </div>
 
       <div class="qc-step" data-step="2">
-        <p class="qc-step-label">Step 2 of 7</p>
-        <p class="qc-question">Do you need English and Spanish?</p>
+        <p class="qc-step-label"><span data-en="Step 2 of 7" data-es="Paso 2 de 7">Step 2 of 7</span></p>
+        <p class="qc-question" data-en="Do you need English and Spanish?" data-es="¿Requiere versión en inglés y español?">Do you need English and Spanish?</p>
         <div class="qc-options" data-question="bilingual">
-          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text">Yes, bilingual<span class="qc-opt-sub">BZ$250–400 add-on with Starter or Standard; included with Plus</span></span></div>
-          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text">No, English is fine</span></div>
+          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Yes, bilingual" data-es="Sí, bilingüe">Yes, bilingual</span><span class="qc-opt-sub" data-en="BZ$250–400 add-on with Starter or Standard; included with Plus" data-es="Adicional de BZ$250–400 con Inicial o Estándar; incluido en Plus">BZ$250–400 add-on with Starter or Standard; included with Plus</span></span></div>
+          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="No, English is fine" data-es="No, solo en un idioma">No, English is fine</span></span></div>
         </div>
       </div>
 
       <div class="qc-step" data-step="3">
-        <p class="qc-step-label">Step 3 of 7</p>
-        <p class="qc-question">Do you need additional pages?</p>
+        <p class="qc-step-label"><span data-en="Step 3 of 7" data-es="Paso 3 de 7">Step 3 of 7</span></p>
+        <p class="qc-question" data-en="Do you need additional pages?" data-es="¿Necesita páginas adicionales?">Do you need additional pages?</p>
         <div class="qc-options" data-question="pages">
-          <div class="qc-option" data-value="none"><span class="qc-check"></span><span class="qc-opt-text">No additional pages</span></div>
-          <div class="qc-option" data-value="one"><span class="qc-check"></span><span class="qc-opt-text">1 additional page<span class="qc-opt-sub">BZ$180</span></span></div>
-          <div class="qc-option" data-value="two"><span class="qc-check"></span><span class="qc-opt-text">2 additional pages<span class="qc-opt-sub">BZ$360</span></span></div>
+          <div class="qc-option" data-value="none"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="No additional pages" data-es="Sin páginas adicionales">No additional pages</span></span></div>
+          <div class="qc-option" data-value="one"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="1 additional page" data-es="1 página adicional">1 additional page</span><span class="qc-opt-sub">BZ$180</span></span></div>
+          <div class="qc-option" data-value="two"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="2 additional pages" data-es="2 páginas adicionales">2 additional pages</span><span class="qc-opt-sub">BZ$360</span></span></div>
         </div>
       </div>
 
       <div class="qc-step" data-step="4">
-        <p class="qc-step-label">Step 4 of 7</p>
-        <p class="qc-question">How much animation or interaction would you like?</p>
+        <p class="qc-step-label"><span data-en="Step 4 of 7" data-es="Paso 4 de 7">Step 4 of 7</span></p>
+        <p class="qc-question" data-en="How much animation or interaction would you like?" data-es="¿Cuánta animación o interactividad prefiere?">How much animation or interaction would you like?</p>
         <div class="qc-options" data-question="animation">
-          <div class="qc-option" data-value="none"><span class="qc-check"></span><span class="qc-opt-text">None<span class="qc-opt-sub">Clean and simple</span></span></div>
-          <div class="qc-option" data-value="light"><span class="qc-check"></span><span class="qc-opt-text">Light touch<span class="qc-opt-sub">Hover states, fades • BZ$80–120</span></span></div>
-          <div class="qc-option" data-value="moderate"><span class="qc-check"></span><span class="qc-opt-text">Moderate<span class="qc-opt-sub">Scroll-reveal effects • BZ$150–250</span></span></div>
-          <div class="qc-option" data-value="full"><span class="qc-check"></span><span class="qc-opt-text">Full interactive system<span class="qc-opt-sub">Mesh, cursor parallax • BZ$300–450</span></span></div>
+          <div class="qc-option" data-value="none"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="None" data-es="Ninguna">None</span><span class="qc-opt-sub" data-en="Clean and simple" data-es="Limpia y sencilla">Clean and simple</span></span></div>
+          <div class="qc-option" data-value="light"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Light touch" data-es="Toque ligero">Light touch</span><span class="qc-opt-sub" data-en="Hover states, fades • BZ$80–120" data-es="Efectos al pasar el cursor y transiciones • BZ$80–120">Hover states, fades • BZ$80–120</span></span></div>
+          <div class="qc-option" data-value="moderate"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Moderate" data-es="Moderada">Moderate</span><span class="qc-opt-sub" data-en="Scroll-reveal effects • BZ$150–250" data-es="Efectos de revelado al desplazarse • BZ$150–250">Scroll-reveal effects • BZ$150–250</span></span></div>
+          <div class="qc-option" data-value="full"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Full interactive system" data-es="Sistema interactivo completo">Full interactive system</span><span class="qc-opt-sub" data-en="Mesh, cursor parallax • BZ$300–450" data-es="Efectos de red interactiva y paralaje • BZ$300–450">Mesh, cursor parallax • BZ$300–450</span></span></div>
         </div>
       </div>
 
       <div class="qc-step" data-step="5">
-        <p class="qc-step-label">Step 5 of 7</p>
-        <p class="qc-question">Do you need online ordering or reservations?</p>
+        <p class="qc-step-label"><span data-en="Step 5 of 7" data-es="Paso 5 de 7">Step 5 of 7</span></p>
+        <p class="qc-question" data-en="Do you need online ordering or reservations?" data-es="¿Necesita pedidos en línea o sistema de reservas?">Do you need online ordering or reservations?</p>
         <div class="qc-options" data-question="ordering">
-          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text">Yes<span class="qc-opt-sub">Quoted separately based on the system you need</span></span></div>
-          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text">No</span></div>
+          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Yes" data-es="Sí">Yes</span><span class="qc-opt-sub" data-en="Quoted separately based on the system you need" data-es="Se cotiza por separado según el sistema requerido">Quoted separately based on the system you need</span></span></div>
+          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="No" data-es="No">No</span></span></div>
         </div>
       </div>
 
       <div class="qc-step" data-step="6">
-        <p class="qc-step-label">Step 6 of 7</p>
-        <p class="qc-question">Do you need rush delivery?</p>
+        <p class="qc-step-label"><span data-en="Step 6 of 7" data-es="Paso 6 de 7">Step 6 of 7</span></p>
+        <p class="qc-question" data-en="Do you need rush delivery?" data-es="¿Requiere entrega urgente?">Do you need rush delivery?</p>
         <div class="qc-options" data-question="timeline">
-          <div class="qc-option" data-value="standard"><span class="qc-check"></span><span class="qc-opt-text">Standard timeline is fine</span></div>
-          <div class="qc-option" data-value="rush"><span class="qc-check"></span><span class="qc-opt-text">I need it fast<span class="qc-opt-sub">+25–30% of project price</span></span></div>
+          <div class="qc-option" data-value="standard"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Standard timeline is fine" data-es="Plazo estándar está bien">Standard timeline is fine</span></span></div>
+          <div class="qc-option" data-value="rush"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="I need it fast" data-es="Lo necesito rápido">I need it fast</span><span class="qc-opt-sub" data-en="+25–30% of project price" data-es="+25–30% del precio del proyecto">+25–30% of project price</span></span></div>
         </div>
       </div>
 
       <div class="qc-step" data-step="7">
-        <p class="qc-step-label">Step 7 of 7</p>
-        <p class="qc-question">Would you like Cayo Coding Co. to host and maintain your site?</p>
+        <p class="qc-step-label"><span data-en="Step 7 of 7" data-es="Paso 7 de 7">Step 7 of 7</span></p>
+        <p class="qc-question" data-en="Would you like Cayo Coding Co. to host and maintain your site?" data-es="¿Desea que Cayo Coding Co. aloje y mantenga su sitio web?">Would you like Cayo Coding Co. to host and maintain your site?</p>
         <div class="qc-options" data-question="hosting">
-          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text">Yes: BZ$60/month<span class="qc-opt-sub">Plus includes the first 3 months after launch</span></span></div>
-          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text">No, I'll manage hosting myself</span></div>
+          <div class="qc-option" data-value="yes"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="Yes: BZ$60/month" data-es="Sí: BZ$60/mes">Yes: BZ$60/month</span><span class="qc-opt-sub" data-en="Plus includes the first 3 months after launch" data-es="El paquete Plus incluye los primeros 3 meses tras el lanzamiento">Plus includes the first 3 months after launch</span></span></div>
+          <div class="qc-option" data-value="no"><span class="qc-check"></span><span class="qc-opt-text"><span data-en="No, I'll manage hosting myself" data-es="No, gestionaré el alojamiento por mi cuenta">No, I'll manage hosting myself</span></span></div>
         </div>
       </div>
 
       <div class="qc-nav-btns">
-        <button type="button" class="qc-btn qc-btn-secondary" id="qc-back-btn" style="visibility:hidden;">Back</button>
-        <button type="button" class="qc-btn qc-btn-primary" id="qc-next-btn" disabled>Next</button>
+        <button type="button" class="qc-btn qc-btn-secondary" id="qc-back-btn" style="visibility:hidden;" data-en="Back" data-es="Atrás">Back</button>
+        <button type="button" class="qc-btn qc-btn-primary" id="qc-next-btn" disabled data-en="Next" data-es="Siguiente">Next</button>
       </div>
     </form>
 
     <div class="qc-result" id="qc-result">
-      <p class="qc-result-eyebrow">Your estimate</p>
+      <p class="qc-result-eyebrow" data-en="Your estimate" data-es="Su estimación">Your estimate</p>
       <h3 class="qc-result-tier" id="qc-result-tier">—</h3>
       <p class="qc-result-price" id="qc-result-price">—</p>
       <ul class="qc-result-features" id="qc-result-features"></ul>
       <div class="qc-result-notes" id="qc-result-notes"></div>
       <a href="#" class="qc-btn qc-btn-primary qc-whatsapp-cta" id="qc-whatsapp-cta" target="_blank" rel="noopener">
-        <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Discuss this estimate on WhatsApp
+        <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> <span data-en="Discuss this estimate on WhatsApp" data-es="Consultar esta estimación por WhatsApp">Discuss this estimate on WhatsApp</span>
       </a>
-      <a href="#" class="qc-restart" id="qc-restart-link">Start over</a>
+      <a href="#" class="qc-restart" id="qc-restart-link" data-en="Start over" data-es="Reiniciar">Start over</a>
     </div>
   </div>
 </div>
 
 <script src="script.js"></script>
 
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a8dde0dc7dad48c3b01263a72be77cf4"}'></script>
- <!-- End Cloudflare Web Analytics -->
+<!-- Language Switcher Logic -->
+<script>
+  function setLanguage(lang) {
+    // 1. Store preferred language in browser
+    localStorage.setItem('preferredLang', lang);
+
+    // 2. Set root HTML lang attribute
+    document.documentElement.lang = lang;
+
+    // 3. Update standard text elements
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const text = el.getAttribute(`data-${lang}`);
+      if (text) el.textContent = text;
+    });
+
+    // 4. Update input & textarea placeholders
+    document.querySelectorAll('[data-en-ph]').forEach(el => {
+      const placeholder = el.getAttribute(`data-${lang}-ph`);
+      if (placeholder) el.placeholder = placeholder;
+    });
+
+    // 5. Update active toggle state
+    const btnEn = document.getElementById('btn-en');
+    const btnEs = document.getElementById('btn-es');
+    if (btnEn && btnEs) {
+      btnEn.classList.toggle('active', lang === 'en');
+      btnEs.classList.toggle('active', lang === 'es');
+    }
+  }
+
+  // Auto-load saved preference or default to English
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('preferredLang') || 'en';
+    setLanguage(savedLang);
+  });
+</script>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a8dde0dc7dad48c3b01263a72be77cf4"}'></script>
+<!-- End Cloudflare Web Analytics -->
 </body>
 </html>
